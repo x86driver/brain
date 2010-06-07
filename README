@@ -1,0 +1,3 @@
+專門用來測試 llvm jit
+hello.bf 是 BrainFuck 的原始檔
+會印出 hello world
