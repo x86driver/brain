@@ -1,16 +1,20 @@
 OBJS = BrainF.o BrainFDriver.o
 TARGET = brain
+CC = clang
+LINK = llvm-g++
+LLVM_CFG = `llvm-config --cppflags`
+LLVM_LINK_CFG = `llvm-config --cppflags --ldflags --libs all`
 
 all:$(TARGET)
 
 brain:$(OBJS)
-	g++ $(CFLAGS) -o $@ $(OBJS) `llvm-config --cppflags --ldflags --libs core jit native all`
+	$(LINK) $(CFLAGS) -o $@ $(OBJS) $(LLVM_LINK_CFG)
 
 BrainF.o:BrainF.cpp
-	g++ $(CFLAGS) -c -o $@ $< `llvm-config --cppflags --ldflags --libs core jit native all`
+	$(CC) $(CFLAGS) -c -o $@ $< $(LLVM_CFG)
 
 BrainFDriver.o:BrainFDriver.cpp
-	g++ $(CFLAGS) -c -o $@ $< `llvm-config --cppflags --ldflags --libs core jit native all`
+	$(CC) $(CFLAGS) -c -o $@ $< $(LLVM_CFG)
 
 clean:
 	rm -rf $(TARGET) $(OBJS)
